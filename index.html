@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" initial-scale="1.0">
+    <title>Egr. Tools</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body >
+    <h1 class="pageHeader" >Engineering Tools_Mide</h1>       
+    <div class="overallContainer"> 
+      <div class="buttonContainer"> 
+        <button  class = "tabLink" type="button" onclick="openTab('simpleCalc',this)" id="defaultButton">Simple Calculator</button>
+        <button  class = "tabLink" type="button" onclick="openTab('pfccCalc',this)">PFCC Sizing</button>
+        <button  class = "tabLink" type="button" onclick="openTab('financialVideos',this)">Videos</button>
+        <button  class = "tabLink" type="button" onclick="openTab('nextItem',this)">Next Item...</button>
+      </div>
+      <div class="tabContainer">
+        <div class="tabWindow" id ="simpleCalc">
+            <form id="form">
+                <br>
+                <br>
+                <br>
+                <input id="sCViewer">
+                <table id="simpleCalcTable">
+                    <!-- <caption style="text-align: center;">Simple Calculator</caption>  -->
+                    <!-- <h3 style="text-align: center; color: white;">Simple Calculator </h3> -->                    
+                    <tr>    <!--Row 1-->
+                        <td><input class="sCButton" id="7Button" type="button" value="7" onclick="dispValue(7)"> </td>   
+                        <td><input class="sCButton" id="8Button" type="button" value="8" onclick="dispValue(8)"> </td>   
+                        <td><input class="sCButton" id="9Button" type="button" value="9" onclick="dispValue(9)"> </td>                                                   
+                        <td><input class="sCButton" id="divButton" type="button" value="/" onclick="divide()"> </td>                                                   
+                    </tr>
+                    <tr>    <!--Row 2-->
+                        <td><input class="sCButton" id="4Button" type="button" value="4" onclick="dispValue(4)"> </td>   
+                        <td><input class="sCButton" id="5Button" type="button" value="5" onclick="dispValue(5)"> </td>   
+                        <td><input class="sCButton" id="6Button" type="button" value="6" onclick="dispValue(6)"> </td>                                                   
+                        <td><input class="sCButton" id="multButton" type="button" value="x" onclick="multiply()"> </td>                                                   
+                    </tr>
+                    <tr>    <!--Row 3-->
+                        <td><input class="sCButton" id="1Button" type="button" value="1" onclick="dispValue(1)"> </td>   
+                        <td><input class="sCButton" id="2Button" type="button" value="2" onclick="dispValue(2)"> </td>   
+                        <td><input class="sCButton" id="3Button" type="button" value="3" onclick="dispValue(3)"> </td>                                                   
+                        <td><input class="sCButton" id="subtractButton" type="button" value="-" onclick="subtract()"> </td>                                                   
+                    </tr>
+                    <tr>    <!--Row 4-->
+                        <td><input class="sCButton" id="0Button" type="button" value="0"> </td>   
+                        <td><input class="sCButton" id="pointButton" type="button" value="." onclick="dispValue('.')"> </td>   
+                        <td><input class="sCButton" id="clearButton" type="button" value="C" onclick="clear()"> </td>                                                   
+                        <td><input class="sCButton" id="addButton" type="button" value="+" onclick="addition()"> </td>                                                   
+                    </tr>
+                    <tr>    <!--Row 5-->                                                                           
+                        <!-- <td><input class="sCButton" type="button" style="display: none;"> </td> -->
+                        <!-- <td><input class="sCButton" type="button" style="display: none;"> </td> -->
+                        <!-- <td><input class="sCButton" type="button" style="display: none;"> </td> -->
+                        <td colspan=4><input class="sCButton" id="equalsButton" type="button" value="=" onclick="equals()" style="width: 290px;"> </td>                                                   
+                    </tr>
+
+                    <script>
+                        // Display entries in sCViewer window
+                        function dispValue(number){
+                            let existingNumber = document.getElementById("sCViewer").value;
+                            document.getElementById("sCViewer").value =existingNumber + number; // I think this is a string. May need to be converted to a number
+                            
+                            // // Now, write the calculation results to the 'value' attribute of the element with Id='qReq'
+                            // document.getElementById("qReq").value = qCap;
+
+                        //     // on screen messages
+                        //     if(pf1>1 || pf2>1)                  {alert("Power Factor cannot be greater than 1");  document.getElementById("qReq").value = "";}
+                        //     else if(p=0 || p.length == 0)       {alert("Enter a value for Real Power");  document.getElementById("qReq").value = "";}
+                        //     else if(pf1=0 || pf1.length == 0)   {alert("Enter a value for the present Power Factor");  document.getElementById("qReq").value = "";}
+                        //     else if(pf2=0 || pf2.length == 0)   {alert("Enter a value for desired Power Factor");  document.getElementById("qReq").value = "";}                           
+                        }
+                        // reset all fields
+                        function clear(){
+                            document.getElementById(sCViewer).value="";                        
+                        }
+                    </script>
+                </table> 
+                <br>
+                
+            </form>
+        </div>
+        <div class="tabWindow" id ="pfccCalc">
+            <form id="form">
+                <table>
+                    <caption style="text-align: center;"></caption> 
+                    <h3 style="text-align: center;  color: white;">Power Factor Correction Capacitor Sizing </h3>
+                    <tr>    <!--Row 1-->
+                        <td>Real Power</td>   
+                        <td><input id="p" size="25"> </input></td>   
+                        <td> <b>kW</b></td>   
+                    </tr>
+                    <tr>    <!--Row 2-->
+                        <td>Power Factor <sub>now</sub></td>   
+                        <td><input id="pf1" size="25"> </input></td>   
+                        <td></td>
+                    </tr>
+                    <tr>    <!-- Row 3-->
+                        <td>Power Factor <sub>target</sub></td>   
+                        <td><input id="pf2" size="25"> </input></td>   
+                        <td></td>
+                    </tr>
+                    <tr>    <!-- Row 4-->
+                        <td>Correction Capacitor Size <sub>(3 ph)</sub></td>   
+                        <td><input id="qReq" size="25" readonly="readonly"> </input></td>   
+                        <td><b>kvar</b></td>
+                    </tr>
+                    <tr>    <!-- Row 5, buttons-->
+                        <td><input id="reset" type="button" value="Reset" onClick="fReset();"> </input></td>                           
+                        <td><input id="calculatekvar" type="button" value="Calculate" onClick="findkvar();"> </input></td>                                                 
+                    </tr>
+                    <script>
+                        // Calculate amount of reactive power correction needed
+                        function findkvar(){
+                            var p = document.getElementById("p").value;     // Note this value is a string, not yet a number
+                            var pf1 = document.getElementById("pf1").value; // Note this value is a string, not yet a number
+                            var pf2 = document.getElementById("pf2").value; // Note this value is a string, not yet a number
+                            var theta1 = Math.acos(pf1);
+                            var theta2 = Math.acos(pf2);
+                            var qCap = p*(Math.tan(theta1)-Math.tan(theta2));
+                            // console.log(qCap);
+                            // Now, write the calculation results to the 'value' attribute of the element with Id='qReq'
+                            document.getElementById("qReq").value = qCap;
+
+                            // on screen messages
+                            if(pf1>1 || pf2>1)                  {alert("Power Factor cannot be greater than 1");  document.getElementById("qReq").value = "";}
+                            else if(p=0 || p.length == 0)       {alert("Enter a value for Real Power");  document.getElementById("qReq").value = "";}
+                            else if(pf1=0 || pf1.length == 0)   {alert("Enter a value for the present Power Factor");  document.getElementById("qReq").value = "";}
+                            else if(pf2=0 || pf2.length == 0)   {alert("Enter a value for desired Power Factor");  document.getElementById("qReq").value = "";}                           
+                        }
+                        // reset all fields
+                        function fReset(){
+                            document.getElementById("p").value = " ";
+                            document.getElementById("pf1").value = " ";
+                            document.getElementById("pf2").value = " ";
+                            document.getElementById("qReq").value = "";
+                        }
+                    </script>
+                </table> 
+                <br>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/Power_triangle_diagram.jpg">
+            </form>
+        </div>
+        <div class="tabWindow" id ="financialVideos" style="margin: auto;" > <!--Financial Videos Content Area -->
+            <h3 style="color: white;">Latest updates</h3>
+            <div id="containerleft"  >
+                <div id="video1" >            
+                    <!--Optimal aspect ratio ratio is 1.715/1  -->
+                    <!-- <iframe width="1663" height="770" src= frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+                    <iframe width="500" height="291" src="https://www.youtube.com/embed/IKdhgKUZhPA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div id="video2" >
+                    <iframe width="500" height="291" src="https://www.youtube.com/embed/oiUnqlGzLw8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>                                        
+                </div>   
+                <div id="video3" >
+                    <iframe width="500" height="291" src="https://www.youtube.com/embed/nT6VWmeFIkc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>                    
+                </div>
+                <!-- <div id="video4" align="middle">
+                    <iframe width="500" height="291" src="https://www.youtube.com/embed/yRr0_gJ-3mI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>      -->
+            </div>           
+        </div>
+        <div class="tabWindow" id ="nextItem"> Next Item content area</div>
+      </div>
+
+    </div>
+
+    
+    <script src="script.js"></script>
+  </body>
+</html>
