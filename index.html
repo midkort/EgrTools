@@ -22,31 +22,31 @@
                 <br>
                 <br>
                 <input id="sCViewer">
-                <table id="simpleCalcTable">
+                <table id="simpleCalcTable" >
                     <!-- <caption style="text-align: center;">Simple Calculator</caption>  -->
                     <!-- <h3 style="text-align: center; color: white;">Simple Calculator </h3> -->                    
                     <tr>    <!--Row 1-->
                         <td><input class="sCButton" id="7Button" type="button" value="7" onclick="dispValue(7)"> </td>   
                         <td><input class="sCButton" id="8Button" type="button" value="8" onclick="dispValue(8)"> </td>   
-                        <td><input class="sCButton" id="9Button" type="button" value="9" onclick="dispValue(9)"> </td>                                                   
-                        <td><input class="sCButton" id="divButton" type="button" value="/" onclick="divide()"> </td>                                                   
+                        <td><input class="sCButton" id="9Button" type="button" value="9" onclick="dispValue(9)"> </td>    
+                        <td><input class="sCButton" id="divButton" type="button" value="/" onclick="division()"> </td>                                                   
                     </tr>
                     <tr>    <!--Row 2-->
                         <td><input class="sCButton" id="4Button" type="button" value="4" onclick="dispValue(4)"> </td>   
                         <td><input class="sCButton" id="5Button" type="button" value="5" onclick="dispValue(5)"> </td>   
-                        <td><input class="sCButton" id="6Button" type="button" value="6" onclick="dispValue(6)"> </td>                                                   
-                        <td><input class="sCButton" id="multButton" type="button" value="x" onclick="multiply()"> </td>                                                   
+                        <td><input class="sCButton" id="6Button" type="button" value="6" onclick="dispValue(6)"> </td>
+                        <td><input class="sCButton" id="multButton" type="button" value="x" onclick="multiplication()"> </td>                                                   
                     </tr>
                     <tr>    <!--Row 3-->
                         <td><input class="sCButton" id="1Button" type="button" value="1" onclick="dispValue(1)"> </td>   
                         <td><input class="sCButton" id="2Button" type="button" value="2" onclick="dispValue(2)"> </td>   
-                        <td><input class="sCButton" id="3Button" type="button" value="3" onclick="dispValue(3)"> </td>                                                   
-                        <td><input class="sCButton" id="subtractButton" type="button" value="-" onclick="subtract()"> </td>                                                   
+                        <td><input class="sCButton" id="3Button" type="button" value="3" onclick="dispValue(3)"> </td>      
+                        <td><input class="sCButton" id="subtractButton" type="button" value="-" onclick="subtraction()"> </td>                                                   
                     </tr>
                     <tr>    <!--Row 4-->
-                        <td><input class="sCButton" id="0Button" type="button" value="0"> </td>   
+                        <td><input class="sCButton" id="0Button" type="button" value="0" onclick="dispValue(0)"> </td>   
                         <td><input class="sCButton" id="pointButton" type="button" value="." onclick="dispValue('.')"> </td>   
-                        <td><input class="sCButton" id="clearButton" type="button" value="C" onclick="clear()"> </td>                                                   
+                        <td><input class="sCButton" id="clearButton" type="button" value="C" onclick="resetAll()"> </td>
                         <td><input class="sCButton" id="addButton" type="button" value="+" onclick="addition()"> </td>                                                   
                     </tr>
                     <tr>    <!--Row 5-->                                                                           
@@ -57,26 +57,77 @@
                     </tr>
 
                     <script>
-                        // Display entries in sCViewer window
-                        function dispValue(number){
-                            let existingNumber = document.getElementById("sCViewer").value;
-                            document.getElementById("sCViewer").value =existingNumber + number; // I think this is a string. May need to be converted to a number
-                            
-                            // // Now, write the calculation results to the 'value' attribute of the element with Id='qReq'
-                            // document.getElementById("qReq").value = qCap;
+                        var currentEntry;
+                        var operand1;
+                        var operator;
+                        var operand2;
+                        var result;
 
-                        //     // on screen messages
-                        //     if(pf1>1 || pf2>1)                  {alert("Power Factor cannot be greater than 1");  document.getElementById("qReq").value = "";}
-                        //     else if(p=0 || p.length == 0)       {alert("Enter a value for Real Power");  document.getElementById("qReq").value = "";}
-                        //     else if(pf1=0 || pf1.length == 0)   {alert("Enter a value for the present Power Factor");  document.getElementById("qReq").value = "";}
-                        //     else if(pf2=0 || pf2.length == 0)   {alert("Enter a value for desired Power Factor");  document.getElementById("qReq").value = "";}                           
+                        function resetAll(){
+                          currentEntry = '';
+                          operand1 = '';
+                          operator = undefined ;
+                          operand2 = '';
+                          result = '';
+                          document.getElementById('sCViewer').value = '';
                         }
-                        // reset all fields
-                        function clear(){
-                            document.getElementById(sCViewer).value="";                        
+
+                        function dispValue(number){                          
+                          if(operator == undefined){
+                            currentEntry = document.getElementById("sCViewer").value + number;
+                            document.getElementById("sCViewer").value = currentEntry;
+                            operand1 = currentEntry;
+                            console.log('operand1 = '+ operand1);
+                          }else {
+                            currentEntry = document.getElementById("sCViewer").value + number;
+                            document.getElementById("sCViewer").value = currentEntry;                            
+                            operand2 =  currentEntry;
+                            console.log('operand2 = '+ operand2);
+                          }
+                        }
+                        
+                        function addition(){
+                          operator = "+";
+                          document.getElementById("sCViewer").value ='';
+                        }
+                        
+                        function subtraction(){
+                          operator = "-";
+                          document.getElementById("sCViewer").value ='';
+                        }
+                         function multiplication(){
+                          operator = "*";
+                          document.getElementById("sCViewer").value ='';
+                        }
+                         function division(){
+                          operator = "/";
+                          document.getElementById("sCViewer").value ='';
+                        }
+                        function equals(){
+                           if(operator == '+'){
+                             result = parseFloat(operand1) + parseFloat(operand2);
+                             document.getElementById("sCViewer").value = result;
+                             operand1 = result; //Store the result as the new operand1, to enable "rolling" calculations
+                          }
+                          if(operator == '-'){
+                             result = parseFloat(operand1) - parseFloat(operand2);
+                             document.getElementById("sCViewer").value = result;
+                             operand1 = result; //Store the result as the new operand1, to enable "rolling" calculations
+                          }
+                          if(operator == '*'){
+                             result = parseFloat(operand1) * parseFloat(operand2);
+                             document.getElementById("sCViewer").value = result;
+                             operand1 = result; //Store the result as the new operand1, to enable "rolling" calculations
+                          }
+                          if(operator == '/'){
+                             result = parseFloat(operand1) / parseFloat(operand2);
+                             document.getElementById("sCViewer").value = result;
+                             operand1 = result; //Store the result as the new operand1, to enable "rolling" calculations
+                          }
                         }
                     </script>
                 </table> 
+                
                 <br>
                 
             </form>
